@@ -3,7 +3,6 @@ package cipherer
 import (
 	"encoding/base64"
 	"errors"
-	"fmt"
 )
 
 func Cipher(rawString, secret string) (string, error) {
@@ -27,7 +26,7 @@ func Decipher(cipheredText, secret string) (string, error) {
 
 	cipheredBytes, err := base64.StdEncoding.DecodeString(cipheredText)
 	if err != nil {
-		fmt.Println("An error occured while processing the ciphered data! Exiting now...")
+		return "", err
 	}
 
 	decryptedBytes, err := process(cipheredBytes, []byte(secret))
