@@ -23,7 +23,6 @@ func Decipher(cipheredText, secret string) (string, error) {
 		return "", errors.New("Secret key cannot be empty")
 	}
 
-
 	cipheredBytes, err := base64.StdEncoding.DecodeString(cipheredText)
 	if err != nil {
 		return "", err
