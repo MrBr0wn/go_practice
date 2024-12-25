@@ -18,6 +18,7 @@ func main() {
 	fmt.Println(result)
 }
 
+// Напишите функцию, которая убирает дубликаты, сохраняя порядок слайса
 func removeDuplicates(input []string) []string {
 	uniq := make(map[string]int)
 	result := make([]string, 0, len(input))
