@@ -38,7 +38,12 @@ func main() {
 	}
 	fmt.Printf("Man %v", string(jsMan))
 
-	fmt.Println("Exercise 3:")
+	fmt.Println("\n\nExercise 3:")
+
+	// Есть пример API-вызова в формате JSON (переменная input)
+	// Опишите данный объект в виде структуры на Go, в учебных целях 
+	// отбросив «так делать нельзя» и «это не дело».
+	// И на вход подаются сырые данные, требуется их десериализовать
 
 	type Response struct {
 		Header struct {
@@ -74,7 +79,7 @@ func main() {
 	err1 := json.Unmarshal([]byte(input), &res)
 
 	if err1 != nil {
-		fmt.Println("Unmarshaling error", err)
+		fmt.Println("Unmarshaling error", err1)
 	}
-	fmt.Printf("Response: %v\n", res)
+	fmt.Printf("Response: %+v\n", res)
 }
