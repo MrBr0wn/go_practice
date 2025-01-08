@@ -1,8 +1,12 @@
-package cipherer
+package main
 
 import (
+	"bufio"
+	"cipherer/processor"
+	"cipherer/utils"
 	"errors"
 	"flag"
+	"os"
 )
 
 var cipherMode = flag.Bool("cipher", false, "Enable cipher mode.")
@@ -12,13 +16,23 @@ func main() {
 	flag.Parse()
 
 	if *cipherMode && *decipherMode {
-		utils.HaltOnerr(errors.New("please specify only one mode at a time"))
+		utils.HaltOnErr(errors.New("please specify only one mode at a time"))
 	}
 
 	if *decipherMode {
+		decipheredBytes, err := processor.Decrypt()
+		utils.HaltOnErr(err)
 
+		println(string(decipheredBytes))
 	} else if *cipherMode {
+		reader := bufio.NewReader(os.Stdin)
 
+		print("Enter full sentence: ")
+
+		sentence, _ := reader.ReadString('\n')
+
+		err := processor.Encrypt(sentence)
+		utils.HaltOnErr(err)
 	} else {
 		utils.HaltOnErr(errors.New("unknown mode"))
 	}
