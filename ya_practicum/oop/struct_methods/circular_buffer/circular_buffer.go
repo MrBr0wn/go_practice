@@ -44,6 +44,10 @@ func (b *CircularBuffer) TestFunc(idx int, v float64) {
 	b.values[idx] = v
 }
 
+func Handle(num float64, add func(float64)) {
+	add(num)
+}
+
 func main() {
 	buf := NewCircularBuffer(4)
 	for i := 0; i < 6; i++ {
@@ -58,11 +62,23 @@ func main() {
 	buf1 := NewCircularBuffer(5)
 	buf1.ForceSetValueByIdx(0, -1.0)
 	buf1.ForceSetValueByIdx(1, -2.0)
+	fmt.Println("buf1:")
 	fmt.Println(buf1.values)
 
 	buf2 := NewCircularBuffer(4)
 	buf2.TestFunc(0, 3)
 	buf2.TestFunc(1, 2)
 	buf2.ForceSetValueByIdx(0, 1)
+	fmt.Println("buf2:")
 	fmt.Println(buf2.values)
+
+	// Передача метода как аргумента ф-ции
+	buf3 := NewCircularBuffer(4)
+
+	Handle(1.0, buf3.AddValue)
+	Handle(2.0, buf3.AddValue)
+	Handle(3.0, buf3.AddValue)
+	Handle(4.0, buf3.AddValue)
+	fmt.Println("buf3:")
+	fmt.Printf("[%d]: %v\n", buf3.GetCurrentSize(), buf3.GetValues())
 }
