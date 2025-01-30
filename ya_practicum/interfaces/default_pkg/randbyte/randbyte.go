@@ -1,6 +1,7 @@
 package randbyte
 
 import (
+	"encoding/binary"
 	"io"
 	"math/rand"
 )
@@ -16,10 +17,9 @@ func New(seed int64) io.Reader {
 }
 
 func (g *generator) Read(bytes []byte) (n int, err error) {
-	for i := range bytes {
+	for i := 0; i+8 < len(bytes); i += 8 {
 		randInt := g.rnd.Int63()
-		randByte := byte(randInt)
-		bytes[i] = randByte
+		binary.LittleEndian.PutUint64(bytes[i:i+8], uint64(randInt))
 	}
 	return len(bytes), nil
 }
