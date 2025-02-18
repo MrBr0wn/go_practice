@@ -25,4 +25,8 @@ func TestAddNegative(t *testing.T) {
 	if err == nil {
 		t.Error("all arg negative - expected error not be nil")
 	}
+	_, err = Add(0, 0)
+	if err == nil {
+		t.Error("all args are zero - expected error not be nil")
+	}
 }
